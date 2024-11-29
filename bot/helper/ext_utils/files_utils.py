@@ -306,10 +306,8 @@ async def split_file(
     i=1,
     multi_streams=True,
 ):
-    if (
-        listener.suproc == "cancelled"
-        or listener.suproc is not None
-        and listener.suproc.returncode == -9
+    if listener.suproc == "cancelled" or (
+        listener.suproc is not None and listener.suproc.returncode == -9
     ):
         return False
     if listener.seed and not listener.newDir:
@@ -353,10 +351,8 @@ async def split_file(
             if not multi_streams:
                 del cmd[10]
                 del cmd[10]
-            if (
-                listener.suproc == "cancelled"
-                or listener.suproc is not None
-                and listener.suproc.returncode == -9
+            if listener.suproc == "cancelled" or (
+                listener.suproc is not None and listener.suproc.returncode == -9
             ):
                 return False
             listener.suproc = await create_subprocess_exec(*cmd, stderr=PIPE)
@@ -629,10 +625,8 @@ async def clean_unwanted(path):
     LOGGER.info(f"Cleaning unwanted files/folders: {path}")
     for dirpath, _, files in await sync_to_async(walk, path, topdown=False):
         for filee in files:
-            if (
-                filee.endswith(".!qB")
-                or filee.endswith(".parts")
-                and filee.startswith(".")
+            if filee.endswith(".!qB") or (
+                filee.endswith(".parts") and filee.startswith(".")
             ):
                 await aioremove(ospath.join(dirpath, filee))
         if dirpath.endswith((".unwanted", "splited_files", "copied")):
@@ -683,11 +677,8 @@ def get_mime_type(file_path):
 def check_storage_threshold(size, threshold, arch=False, alloc=False):
     free = disk_usage("/usr/src/app/downloads/").free
     if not alloc:
-        if (
-            not arch
-            and free - size < threshold
-            or arch
-            and free - (size * 2) < threshold
+        if (not arch and free - size < threshold) or (
+            arch and free - (size * 2) < threshold
         ):
             return False
     elif not arch:

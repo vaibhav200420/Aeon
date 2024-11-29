@@ -410,7 +410,7 @@ def arg_parser(items, arg_base):
         if part in arg_base:
             if arg_start == -1:
                 arg_start = i
-            if i + 1 == t and part in bool_arg_set or part in ["-s", "-j"]:
+            if (i + 1 == t and part in bool_arg_set) or part in ["-s", "-j"]:
                 arg_base[part] = True
             else:
                 sub_list = []
@@ -525,8 +525,8 @@ async def checking_access(user_id, button=None):
     if DATABASE_URL:
         data["time"] = await DbManager().get_token_expiry(user_id)
     expire = data.get("time")
-    is_expired = (
-        expire is None or expire is not None and (time() - expire) > token_timeout
+    is_expired = expire is None or (
+        expire is not None and (time() - expire) > token_timeout
     )
     if is_expired:
         token = data["token"] if expire is None and "token" in data else str(uuid4())

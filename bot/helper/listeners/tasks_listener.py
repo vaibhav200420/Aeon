@@ -150,10 +150,8 @@ class MirrorLeechListener:
         multi_links = False
         while True:
             if self.same_dir:
-                if (
-                    self.same_dir["total"] in [1, 0]
-                    or self.same_dir["total"] > 1
-                    and len(self.same_dir["tasks"]) > 1
+                if self.same_dir["total"] in [1, 0] or (
+                    self.same_dir["total"] > 1 and len(self.same_dir["tasks"]) > 1
                 ):
                     break
             else:
@@ -228,10 +226,8 @@ class MirrorLeechListener:
                         walk, dl_path, topdown=False
                     ):
                         for file_ in files:
-                            if (
-                                is_first_archive_split(file_)
-                                or is_archive(file_)
-                                and not file_.endswith(".rar")
+                            if is_first_archive_split(file_) or (
+                                is_archive(file_) and not file_.endswith(".rar")
                             ):
                                 f_path = ospath.join(dirpath, file_)
                                 t_path = (
@@ -250,9 +246,8 @@ class MirrorLeechListener:
                                 ]
                                 if not pswd:
                                     del cmd[2]
-                                if (
-                                    self.suproc == "cancelled"
-                                    or self.suproc is not None
+                                if self.suproc == "cancelled" or (
+                                    self.suproc is not None
                                     and self.suproc.returncode == -9
                                 ):
                                     return

@@ -627,7 +627,7 @@ async def event_handler(client, query, pfunc, rfunc, document=False):
         return bool(
             user.id == query.from_user.id
             and event.chat.id == chat_id
-            and (event.text or event.document and document)
+            and (event.text or (event.document and document))
         )
 
     handler = client.add_handler(

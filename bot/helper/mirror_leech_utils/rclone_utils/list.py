@@ -195,8 +195,7 @@ class RcloneList:
         if (
             self.path
             or len(self.__sections) > 1
-            or self.__rc_user
-            and self.__rc_owner
+            or (self.__rc_user and self.__rc_owner)
         ):
             buttons.callback("Back", "rcq back pa", position="footer")
         if self.path:

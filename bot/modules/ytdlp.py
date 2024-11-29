@@ -438,7 +438,7 @@ async def _ytdl(client, message, is_leech=False, same_dir=None, bulk=[]):
         return None
 
     if not is_leech:
-        if config_dict["DEFAULT_UPLOAD"] == "rc" and not up or up == "rc":
+        if (config_dict["DEFAULT_UPLOAD"] == "rc" and not up) or up == "rc":
             up = config_dict["RCLONE_PATH"]
         if not up and config_dict["DEFAULT_UPLOAD"] == "gd":
             up = "gd"

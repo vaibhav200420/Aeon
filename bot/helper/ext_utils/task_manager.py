@@ -147,10 +147,8 @@ async def limit_checker(
 ):
     LOGGER.info("Checking limit")
     user_id = listener.message.from_user.id
-    if (
-        user_id == OWNER_ID
-        or user_id in user_data
-        and user_data[user_id].get("is_sudo")
+    if user_id == OWNER_ID or (
+        user_id in user_data and user_data[user_id].get("is_sudo")
     ):
         return None
     if await isAdmin(listener.message):
@@ -235,10 +233,8 @@ async def task_utils(message):
             _msg, button = await BotPm_check(message, button)
             if _msg:
                 msg.append(_msg)
-    if (
-        user_id == OWNER_ID
-        or user_id in user_data
-        and user_data[user_id].get("is_sudo")
+    if user_id == OWNER_ID or (
+        user_id in user_data and user_data[user_id].get("is_sudo")
     ):
         return msg, button
     if admin:

@@ -131,10 +131,8 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
         buttons.callback("Close", f"userset {user_id} close", "footer")
         button = buttons.column(2)
     elif key == "leech":
-        if (
-            user_dict.get("as_doc", False)
-            or "as_doc" not in user_dict
-            and config_dict["AS_DOCUMENT"]
+        if user_dict.get("as_doc", False) or (
+            "as_doc" not in user_dict and config_dict["AS_DOCUMENT"]
         ):
             ltype = "DOCUMENT"
             buttons.callback("Send As Media", f"userset {user_id} doc")

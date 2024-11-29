@@ -349,7 +349,7 @@ async def _mirror_leech(
             await delete_message(process_msg)
 
     if not is_leech:
-        if config_dict["DEFAULT_UPLOAD"] == "rc" and not up or up == "rc":
+        if (config_dict["DEFAULT_UPLOAD"] == "rc" and not up) or up == "rc":
             up = config_dict["RCLONE_PATH"]
         if not up and config_dict["DEFAULT_UPLOAD"] == "gd":
             up = "gd"
